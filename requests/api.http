@@ -1,0 +1,121 @@
+@baseUrl = http://localhost:4000
+@token = {{token}}
+
+###############
+### АВТОРИЗАЦИЯ
+###############
+
+### Создание пользователя
+POST {{baseUrl}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "username": "solar",
+    "email": "solar@solar.pl",
+    "password": "pass123"
+}
+
+### Вход и получение токена
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "solar@solar.pl",
+    "password": "pass123"
+}
+
+### Проверка токена
+GET {{baseUrl}}/api/v1/auth/verify
+Authorization: Bearer {{token}}
+
+#############
+### ДАШБОРД
+#############
+
+### Получение общей статистики
+GET {{baseUrl}}/api/v1/dashboard/summary
+Authorization: Bearer {{token}}
+
+#############
+### КЛИЕНТЫ
+#############
+
+### Получение всех клиентов
+GET {{baseUrl}}/api/v1/clients
+Authorization: Bearer {{token}}
+
+### Создание клиента
+POST {{baseUrl}}/api/v1/clients
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Test Company",
+    "email": "test@company.com",
+    "phone": "+1234567890",
+    "type": "COMPANY",
+    "clientType": "BOTH",
+    "code": "TC001"
+}
+
+##############
+### ПРОДУКТЫ
+##############
+
+### Получение всех продуктов
+GET {{baseUrl}}/api/v1/products
+Authorization: Bearer {{token}}
+
+### Создание продукта
+POST {{baseUrl}}/api/v1/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "code": "PROD001",
+    "name": "Test Product",
+    "description": "Test Description",
+    "unit": "pcs",
+    "price": 100.00,
+    "currency": "EUR"
+}
+
+###########
+### СКЛАД
+###########
+
+### Получение всех складов
+GET {{baseUrl}}/api/v1/warehouses
+Authorization: Bearer {{token}}
+
+#################
+### ПЛАН СЧЕТОВ
+#################
+
+### Получение всех счетов
+GET {{baseUrl}}/api/v1/chart-of-accounts
+Authorization: Bearer {{token}}
+
+### Создание счета
+POST {{baseUrl}}/api/v1/chart-of-accounts
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "code": "1000",
+    "name": "Cash Account",
+    "type": "ASSET",
+    "account_type": "BALANCE"
+}
+### Вход в систему
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "solar@solar.pl",
+    "password": "pass123"
+}
+
+### Проверка дашборда
+GET {{baseUrl}}/api/v1/dashboard/summary
+Authorization: Bearer {{token}}

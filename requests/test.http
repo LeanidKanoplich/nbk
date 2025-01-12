@@ -1,0 +1,9 @@
+### Тестовый маршрут
+GET http://localhost:4000/api/v1/test
+
+### Базовый маршрут дашборда
+GET http://localhost:4000/api/v1/dashboard
+
+### Маршрут статистики
+GET http://localhost:4000/api/v1/dashboard/summary
+Authorization: Bearer {{$dotenv authToken}} 
