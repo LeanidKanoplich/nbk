@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const clientController = require('../controllers/clientController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { checkAuth } = require('../middleware/authMiddleware');
 
-router.get('/clients', authMiddleware, clientController.getClients);
-router.post('/clients', authMiddleware, clientController.createClient);
+// Получение всех клиентов
+router.get('/', checkAuth, clientController.getAllClients);
 
-module.exports = router; 
+// Создание клиента
+router.post('/', checkAuth, clientController.createClient);
+
+module.exports = router;

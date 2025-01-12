@@ -16,9 +16,9 @@ datasource db {
 
 // Enums
 enum ClientType {
+  BOTH
   CUSTOMER
   SUPPLIER
-  BOTH
 }
 
 enum currency {
@@ -29,6 +29,11 @@ enum currency {
 enum warehouse_status {
   Active
   Inactive
+}
+
+enum ClientEntityType {
+  INDIVIDUAL
+  COMPANY
 }
 
 model users {
@@ -57,19 +62,20 @@ model users {
 }
 
 model clients {
-  id           Int        @id @default(autoincrement())
-  name         String     @db.VarChar(100)
-  email        String     @db.VarChar(100)
-  phone        String?    @db.VarChar(20)
-  type         ClientType @default(BOTH)
-  is_active    Boolean?   @default(true)
-  code         String?    @db.VarChar(50)
-  vat_code     String?    @db.VarChar(50)
+  id           Int             @id @default(autoincrement())
+  name         String          @db.VarChar(100)
+  email        String          @db.VarChar(100)
+  phone        String?         @db.VarChar(20)
+  type         ClientEntityType @default(INDIVIDUAL)
+  clientType   ClientType      @default(BOTH)
+  is_active    Boolean?        @default(true)
+  code         String?         @db.VarChar(50)
+  vat_code     String?         @db.VarChar(50)
   user_id      Int
-  created_at   DateTime?  @default(now()) @db.Timestamp(6)
-  updated_at   DateTime?  @default(now()) @db.Timestamp(6)
+  created_at   DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at   DateTime?       @default(now()) @db.Timestamp(6)
 
-  // Связи
+  // Связи с правильными названиями моделей
   users            users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
   purchases        purchases[]
   sales           sales[]
@@ -79,6 +85,7 @@ model clients {
 
   @@index([created_at])
   @@index([type])
+  @@index([clientType])
   @@index([is_active])
 }
 
